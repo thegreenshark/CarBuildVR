@@ -18,8 +18,13 @@ public class PipBoyController : MonoBehaviour
 
 
 
-    public void buttonPressed()
+    public void resetButtonPressed()
     {
-        Debug.Log("pip boy");
+        Debug.Log("reset");
+    }
+
+    public void alarmButtonPressed()
+    {
+        Debug.Log("alarm");
     }
 }
