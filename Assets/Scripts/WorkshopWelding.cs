@@ -32,4 +32,5 @@ public class WorkshopWelding : Workshop
         Manufacture.instance.SetState(States.welding);
         weldRobot.SetTrigger("weld");
     }
+
 }

@@ -7,6 +7,7 @@ public class Workshop : MonoBehaviour
     [SerializeField] protected Transform car;
     [SerializeField] protected Transform carInitialPosition;
     [SerializeField] protected Transform carTargetPosition;
+    [SerializeField] protected GameObject newCarPartPrefab;
     [SerializeField] protected float carMoveSpeed = 1;
     [SerializeField] protected float eps = 0.005f;
 
@@ -56,9 +57,11 @@ public class Workshop : MonoBehaviour
     }
 
 
-    public void setFinished()
+    public virtual void setFinished()
     {
         finished = true;
+        if (newCarPartPrefab != null)
+            Instantiate(newCarPartPrefab, car);
     }
 
 }
