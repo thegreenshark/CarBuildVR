@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Workshop : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class Workshop : MonoBehaviour
     [SerializeField] protected Transform carInitialPosition;
     [SerializeField] protected Transform carTargetPosition;
     [SerializeField] protected GameObject newCarPartPrefab;
+    [SerializeField] protected TextMeshProUGUI tvText;
+    [SerializeField] protected DoorController door;
+    [SerializeField] protected string tvString;
     [SerializeField] protected float carMoveSpeed = 1;
     [SerializeField] protected float eps = 0.005f;
 
@@ -16,6 +20,7 @@ public class Workshop : MonoBehaviour
     protected float carNormalzedPosition = 0;
     protected bool carMovingToTarget = false;
     protected bool carIsAtTarget = false;
+    protected bool isEmergencyStopped = false;
 
     //TODO
     // ссылка на текст на табло (на канвасе)
@@ -47,6 +52,11 @@ public class Workshop : MonoBehaviour
         if (Manufacture.instance.workshops[previousWorkshopIndex].isFinished() == false)
             return;
 
+        if (isEmergencyStopped) return;
+
+        if (door != null)
+            door.openDoor();
+
         carMovingToTarget = true;
     }
 
@@ -62,6 +72,26 @@ public class Workshop : MonoBehaviour
         finished = true;
         if (newCarPartPrefab != null)
             Instantiate(newCarPartPrefab, car);
+
+        counter++;
+        updateTvText();
+    }
+
+    public virtual void emergencyStop()
+    {
+        isEmergencyStopped = true;
+    }
+
+
+        public void resetCounter()
+    {
+        counter = 0;
+        updateTvText();
+    }
+
+    protected void updateTvText()
+    {
+        tvText.text = tvString + $": {counter}";
     }
 
 }

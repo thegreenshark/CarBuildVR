@@ -16,7 +16,7 @@ public class WorkshopPaint : Workshop
 
     void Start()
     {
-        
+        updateTvText();
     }
 
     void Update()
@@ -33,6 +33,7 @@ public class WorkshopPaint : Workshop
     {
         if (!carIsAtTarget) return;
         if (finished) return;
+        if (isEmergencyStopped) return;
 
         colorChoiceLocked = true;
         Manufacture.instance.SetState(States.paint);
@@ -45,6 +46,13 @@ public class WorkshopPaint : Workshop
         base.setFinished();
         car.GetChild(0).GetComponent<MeshRenderer>().material.color = chosenColor;
     }
+
+    public override void emergencyStop()
+    {
+        paintRobot.speed = 0;
+        isEmergencyStopped = true;
+    }
+
 
 
     public Color getChosenColor()

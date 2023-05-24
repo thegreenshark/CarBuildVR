@@ -9,6 +9,7 @@ public class WorkshopWelding : Workshop
     void Start()
     {
         car.position = carInitialPosition.position;
+        updateTvText();
     }
 
     void Update()
@@ -19,6 +20,8 @@ public class WorkshopWelding : Workshop
     public void startMoveToTarget()
     {
         if (Manufacture.instance.GetState() != States.idle) return;
+        if (isEmergencyStopped) return;
+
         carMovingToTarget = true;
     }
 
@@ -28,9 +31,16 @@ public class WorkshopWelding : Workshop
         if (Manufacture.instance.GetState() != States.idle) return;
         if (!carIsAtTarget) return;
         if (finished) return;
+        if (isEmergencyStopped) return; 
 
         Manufacture.instance.SetState(States.welding);
         weldRobot.SetTrigger("weld");
+    }
+
+    public override void emergencyStop()
+    {
+        weldRobot.speed = 0;
+        isEmergencyStopped = true;
     }
 
 }
