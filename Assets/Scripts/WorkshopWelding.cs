@@ -8,7 +8,7 @@ public class WorkshopWelding : Workshop
 
     void Start()
     {
-        car.position = carInitialPosition.position;
+        car.position = carInitialPosition.position; // установка машины в начальную точку (надо только в этом скрипте)
         updateTvText();
     }
 

@@ -13,6 +13,11 @@ public class WorkshopSeatsLightsGlass : Workshop
     // Update is called once per frame
     void Update()
     {
-        
+        updateCarPosition();
+    }
+
+    public void startMoveToTarget()
+    {
+        startMoveToTarget(2);
     }
 }
